@@ -14,7 +14,8 @@ def login(qq_number):
     try:
         driver.find_element_by_id('login_div')
         driver.switch_to.frame('login_frame')
-        driver.execute_script('document.getElementById("img_out_1326670425").click();')
+        #选择本机登录的QQ，xxxxxxxx为QQ号
+        driver.execute_script('document.getElementById("img_out_xxxxxxxx").click();')
         flag = True
     except:
         flag = False
@@ -28,6 +29,7 @@ def spider():
     data = []
     while(not finish):
         content = driver.find_elements_by_css_selector('.content')
+        #精确定位，避免当转发说说时，获取到两个时间
         stime = driver.find_elements_by_css_selector('div.box.bgr3>div.ft>div.info>span.c_tx3>.c_tx.c_tx3.goDetail')
         for con,sti in zip(content,stime):
             data.append([sti.get_attribute('title'),con.text.replace('\n','  ')])
@@ -60,6 +62,7 @@ def word_analyze(words):
     str_list = "/".join(seg)
     my_word_list = []
     f_stop_seg_list = []
+    #停用词位置自选
     with open('../stopword.txt','r',encoding='utf-8') as f:
         for line in f.readlines():
             f_stop_seg_list.append(line.strip())
