@@ -38,7 +38,7 @@ def spider():
             js = 'document.getElementById("pager_next_{}").click();'.format(i)
             driver.execute_script(js)
             time.sleep(3)
-            finish = True
+            finish = False
             i += 1
         except:
             finish = True
@@ -126,6 +126,6 @@ if __name__ == '__main__':
         
         words = [row[1] for row in result]
         #剔除第一行标题
-        word_analyze(result[1][1:])
+        word_analyze(words)
         path = qq_number+'.csv'
         save_to_csv(path,result)
